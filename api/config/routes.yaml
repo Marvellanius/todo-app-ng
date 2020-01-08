@@ -1,0 +1,6 @@
+todo_list:
+    path: /api/todos
+    controller: App\Controller\TodoController::getList
+todo_batch_update:
+    path: /api/todos/batch
+    controller: App\Controller\TodoController::updateTodos

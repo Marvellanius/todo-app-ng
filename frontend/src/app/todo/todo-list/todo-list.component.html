@@ -1,0 +1,52 @@
+<button class="fab-add" mat-fab color="accent" (click)="updateOrAddTodo()" ><mat-icon>add</mat-icon></button>
+<mat-toolbar color="primary">
+    <span>Todo</span>
+    <mat-chip-list *ngIf="todosFiltered.length">
+        <mat-chip [removable]=true (removed)="clearFilter()">
+            Filter active: {{filterType}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+    </mat-chip-list>
+</mat-toolbar>
+<div class="todo-grid">
+    <ng-container *ngIf="todosFiltered.length < 1">
+        <mat-card class="card--todo" *ngFor="let todo of todos; let index = index">
+            <mat-card-content class="todo-content-grid">
+                <mat-checkbox color="primary" [name]="'item'+index" [(ngModel)]="todo.completed">
+                    <span [class.completed]="todo.completed">{{todo.title}}</span>
+                </mat-checkbox>
+                <mat-chip-list><mat-chip (click)="filterByCategory(todo.category)">{{todo.category}}</mat-chip></mat-chip-list>
+                <span>
+                    <button (click)="updateOrAddTodo(todo)" mat-mini-fab aria-label="Edit todo" [disabled]="todo.completed"><mat-icon>create</mat-icon></button>
+                    <button (click)="deleteTodo(index)" mat-mini-fab color="warn" aria-label="Delete todo"><mat-icon>delete_outline</mat-icon></button>
+                </span>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+    <ng-container *ngIf="todosFiltered.length">
+        <mat-card class="card--todo" *ngFor="let todo of todosFiltered; let index = index">
+            <mat-card-content class="todo-content-grid">
+                <mat-checkbox color="primary" [name]="'item'+index" [(ngModel)]="todo.completed">
+                    <span [class.completed]="todo.completed">{{todo.title}}</span>
+                </mat-checkbox>
+                <mat-chip-list><mat-chip (click)="filterByCategory(todo.category)">{{todo.category}}</mat-chip></mat-chip-list>
+                <span>
+                    <button (click)="updateOrAddTodo(todo)" mat-mini-fab aria-label="Edit todo" [disabled]="todo.completed"><mat-icon>create</mat-icon></button>
+                    <button (click)="deleteTodo(index)" mat-mini-fab color="warn" aria-label="Delete todo"><mat-icon>delete_outline</mat-icon></button>
+                </span>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+
+</div>
+
+<app-todo-dialog [title]="'New Todo'"
+    [template]="'Enter Todo:'"
+    [placeholder]="'What needs to be done?'"
+    [okText]="dialogOkText"
+    [value]="titleValue"
+    [currentCategory]="categoryValue"
+    [categories]="categories"
+    (valueEmitted)="saveTodo($event)"
+    [showPrompt]="showDialog">
+</app-todo-dialog>

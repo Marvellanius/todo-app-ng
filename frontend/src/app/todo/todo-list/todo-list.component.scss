@@ -1,0 +1,39 @@
+.todo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 100%);
+    justify-content: center;
+}
+.card--todo {
+    margin: 1rem;
+}
+
+.todo-content-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr 2fr;
+    grid-column-gap: 10px;
+}
+
+.fab-add {
+    position:fixed;
+    bottom: 20px;
+    right: 10px;
+    z-index: 999;
+}
+
+.completed {
+    color: #9d9d9d;
+    text-decoration: line-through;
+}
+
+@media screen and (min-width: 768px) {
+    .todo-grid {
+        grid-template-columns: repeat(auto-fill, 300px);
+    }
+
+    .card--todo {
+        mat-card-content {
+            display: block;
+        }
+    }
+}
+

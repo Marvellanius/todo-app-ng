@@ -1,0 +1,31 @@
+<div class="overlay" *ngIf="showPrompt">
+    <mat-card class="modalDialog">
+        <mat-toolbar class="full-width" color="primary">
+            {{title}}
+        </mat-toolbar>
+        <mat-card-content>
+            <br>{{template}}<br><br>
+            <mat-form-field class="full-width">
+                <input matInput [placeholder]="placeholder"
+                        [(ngModel)]="value"
+                        (keyup.enter)="emitValue({title: value, category: currentCategory})"
+                        (keyup.escape)="emitValue(null)"/>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput [matAutocomplete]="auto"
+                        name="category" #categoryField="ngModel"
+                       [placeholder]="'Select or add a category'"
+                       [(ngModel)]="currentCategory" (ngModelChange)="filterCategory()"
+                       (keyup.enter)="emitValue({title: value, category: currentCategory})"
+                       (keyup.escape)="emitValue(null)"/>
+            </mat-form-field>
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let c of filteredCategory" [value]="c">{{c}}</mat-option>
+            </mat-autocomplete>
+        </mat-card-content>
+        <mat-card-actions class="center">
+            <button mat-button (click)="emitValue(null)" color="primary">{{cancelText}}</button>
+            <button mat-raised-button (click)="emitValue({title: value, category: currentCategory})" color="primary">{{okText}}</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

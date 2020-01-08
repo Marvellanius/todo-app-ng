@@ -1,0 +1,13 @@
+{
+    "name": "dick/todo-app-ng",
+    "description": "Todo App written in Angular + a Symfony PHP backend API",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dick van Viegen",
+            "email": "dickv.viegen@gmail.com"
+        }
+    ],
+    "require": {}
+}
